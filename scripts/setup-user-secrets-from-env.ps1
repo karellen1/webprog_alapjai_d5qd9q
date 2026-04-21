@@ -54,5 +54,18 @@ if (-not $values.ContainsKey($connectionStringKey)) {
 
 dotnet user-secrets set --project $Project "ConnectionStrings:DefaultConnection" "$($values[$connectionStringKey])" | Out-Null
 
+if ($values.ContainsKey("JWT__Key") -and -not [string]::IsNullOrWhiteSpace($values["JWT__Key"])) {
+    dotnet user-secrets set --project $Project "Jwt:Key" "$($values['JWT__Key'])" | Out-Null
+}
+
+if ($values.ContainsKey("JWT__Issuer") -and -not [string]::IsNullOrWhiteSpace($values["JWT__Issuer"])) {
+    dotnet user-secrets set --project $Project "Jwt:Issuer" "$($values['JWT__Issuer'])" | Out-Null
+}
+
+if ($values.ContainsKey("JWT__Audience") -and -not [string]::IsNullOrWhiteSpace($values["JWT__Audience"])) {
+    dotnet user-secrets set --project $Project "Jwt:Audience" "$($values['JWT__Audience'])" | Out-Null
+}
+
 Write-Host "User Secrets updated: ConnectionStrings:DefaultConnection"
+Write-Host "User Secrets updated: Jwt:* (if JWT__* values exist in .env)"
 Write-Host "Project: $Project"

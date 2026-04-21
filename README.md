@@ -17,7 +17,12 @@ Minimal backend starter for the Web Programming assignment.
 1. Health check: `GET /health`
 2. OpenAPI JSON (development): `GET /openapi/v1.json`
 3. Scalar API UI (development): `GET /scalar/v1`
+4. Auth register: `POST /api/auth/register`
+5. Auth login: `POST /api/auth/login`
 
 ## Why User Secrets?
 
 Sensitive values (like DB connection strings) must not be committed. Each developer must run the setup script once per machine/profile.
+
+For auth to work, set `JWT__Key` in `.env` (min 32 chars), then run:
+`./scripts/setup-user-secrets-from-env.ps1`
