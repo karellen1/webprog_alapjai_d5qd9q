@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NotesApp.API.Dtos.Auth;
 using NotesApp.API.Models;
 using NotesApp.API.Services;
 
@@ -62,23 +62,3 @@ public class AuthController(UserManager<AppUser> userManager, SignInManager<AppU
         return Ok(new AuthResponse(token, expiresAtUtc));
     }
 }
-
-public class RegisterRequest
-{
-    [Required, EmailAddress]
-    public string Email { get; set; } = string.Empty;
-
-    [Required, MinLength(8)]
-    public string Password { get; set; } = string.Empty;
-}
-
-public class LoginRequest
-{
-    [Required, EmailAddress]
-    public string Email { get; set; } = string.Empty;
-
-    [Required]
-    public string Password { get; set; } = string.Empty;
-}
-
-public record AuthResponse(string AccessToken, DateTime ExpiresAtUtc);
