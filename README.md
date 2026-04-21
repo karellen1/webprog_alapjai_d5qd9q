@@ -12,6 +12,12 @@ Minimal backend starter for the Web Programming assignment.
 4. Run API:
    `dotnet run --project backend/src/NotesApp.API/NotesApp.API.csproj`
 
+## Useful endpoints
+
+1. Health check: `GET /health`
+2. OpenAPI JSON (development): `GET /openapi/v1.json`
+3. Scalar API UI (development): `GET /scalar/v1`
+
 ## Why User Secrets?
 
 Sensitive values (like DB connection strings) must not be committed. Each developer must run the setup script once per machine/profile.
