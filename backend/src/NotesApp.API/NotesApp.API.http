@@ -1,6 +1,41 @@
-@NotesApp.API_HostAddress = http://localhost:5098
+@NotesApp.API_HostAddress = http://localhost:5080
+@Email = demo@example.com
+@Password = Password1
+@Token = paste_jwt_here
 
-GET {{NotesApp.API_HostAddress}}/weatherforecast/
+### Register
+POST {{NotesApp.API_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+	"email": "{{Email}}",
+	"password": "{{Password}}"
+}
+
+### Login
+POST {{NotesApp.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+	"email": "{{Email}}",
+	"password": "{{Password}}"
+}
+
+### Health check
+GET {{NotesApp.API_HostAddress}}/health
 Accept: application/json
 
-###
+### Get notes (requires bearer token)
+GET {{NotesApp.API_HostAddress}}/api/notes
+Authorization: Bearer {{Token}}
+Accept: application/json
+
+### Create note (requires bearer token)
+POST {{NotesApp.API_HostAddress}}/api/notes
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+	"title": "My first note",
+	"content": "Hello from HTTP file"
+}
