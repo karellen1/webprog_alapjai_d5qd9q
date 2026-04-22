@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# Frontend (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This frontend implements:
 
-Currently, two official plugins are available:
+- register and login against `/api/auth`
+- JWT token storage in localStorage
+- authenticated note CRUD against `/api/notes`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Run in development
 
-## React Compiler
+1. Start the backend API first (HTTPS profile recommended).
+2. From the repository root run:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Or, if your terminal is already in this folder, run:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The Vite dev server proxies `/api` and `/health` to `https://localhost:7147`.
+
+## Pages
+
+- `/login`: login/register only
+- `/notes`: note creation and note list (protected)
+
+If you are not authenticated, routing redirects to `/login`.
+
+## Frontend structure (refactored)
+
+- `src/app`: app routing and protected route
+- `src/features/auth`: auth API, context, storage, hook, and types
+- `src/features/notes`: notes API, hook, UI components, and types
+- `src/pages`: route-level pages (`LoginPage`, `NotesPage`)
+- `src/shared`: shared HTTP client and API error extraction
+- `src/styles`: global app styling (retro-inspired baseline)
+
+## Optional API base URL override
+
+By default, requests are relative (good with Vite proxy). If you want direct calls to a different backend URL, create `.env` from `.env.example` and set:
+
+```bash
+VITE_API_BASE_URL=https://localhost:7147
+```
+
+## Build
+
+```bash
+npm run build
 ```
