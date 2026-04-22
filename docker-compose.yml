@@ -17,5 +17,35 @@ services:
       timeout: 5s
       retries: 5
 
+  api:
+    build:
+      context: ./backend
+      dockerfile: src/NotesApp.API/Dockerfile
+    container_name: notesapp-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      UseHttpsRedirection: "false"
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=${POSTGRES_DB:-notesappdb};Username=${POSTGRES_USER:-notesapp};Password=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      Jwt__Key: ${JWT__Key:?JWT__Key is required}
+      Jwt__Issuer: ${JWT__Issuer:-NotesApp}
+      Jwt__Audience: ${JWT__Audience:-NotesApp.Client}
+    ports:
+      - "${API_PORT:-5098}:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: notesapp-frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+
 volumes:
   postgres_data:

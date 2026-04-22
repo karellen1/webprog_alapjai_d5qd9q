@@ -12,6 +12,21 @@ Minimal backend starter for the Web Programming assignment.
 4. Run API:
    `dotnet run --project backend/src/NotesApp.API/NotesApp.API.csproj`
 
+## Docker setup (Postgres + API + Frontend)
+
+1. Copy `.env.example` to `.env` and set at least:
+   - `POSTGRES_PASSWORD`
+   - `JWT__Key` (minimum 32 characters)
+2. Start full stack:
+   `docker compose up -d --build`
+3. Open frontend:
+   `http://localhost:${FRONTEND_PORT:-5173}`
+4. API is available at:
+   `http://localhost:${API_PORT:-5098}`
+
+To stop everything:
+`docker compose down`
+
 ## Useful endpoints
 
 1. Health check: `GET /health`
