@@ -70,7 +70,7 @@ export function NotesPage() {
             <header className="topbar panel">
                 <div>
                     <h1>Notes Console</h1>
-                    <p className="subtitle">Separate login page and dedicated notes workspace.</p>
+                    <p className="subtitle">Take private notes.</p>
                 </div>
                 <button type="button" className="btn secondary" onClick={logout}>
                     Log out

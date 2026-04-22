@@ -6,7 +6,7 @@
 - ORM: Entity Framework Core
 - Adatbázis: PostgreSQL
 - Auth: ASP.NET Core Identity + JWT Bearer (kész user/auth komponensek)
-- Frontend: React + Vite, Tailwind
+- Frontend: React + Vite
 - Konténerizáció: Docker + docker-compose
 - Teszt: xUnit (backend)
 
